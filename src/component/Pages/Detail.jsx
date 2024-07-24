@@ -12,7 +12,7 @@ function Detail() {
     <div className="flex px-[5%] py-[3%] justify-between flex-col lg:flex-row md:flex-row bg-[whitesmoke]">
       <div>
         <img
-          src={"http://localhost:8000/" + shoeitem?.img}
+          src={"https://startech-ecom-api-hgo9.onrender.com/" + shoeitem?.img}
           alt=""
           className="lg:h-[400px] md:h-[300px] h-[300px] object-cover"
         />
