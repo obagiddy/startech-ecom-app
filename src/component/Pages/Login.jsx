@@ -4,15 +4,19 @@ import { IoMdEyeOff } from "react-icons/io";
 import EcomContext from "../../context/EcomContext";
 import AuthContext from "../../context/AuthContext";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 function Login() {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(true);
   const [email, setEmail] = useState("");
-  const { showAndHide } = useContext(EcomContext);
+  const { showAndHide, isAuthenticated } = useContext(EcomContext);
   const [state, dispatch] = useContext(AuthContext);
   const { setItem } = useLocalStorage("auth-token");
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   const redirect = useNavigate();
 
@@ -20,13 +24,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://startech-ecom-api-scax.onrender.com/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        "https://startech-ecom-api-scax.onrender.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
 
